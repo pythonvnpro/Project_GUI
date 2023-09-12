@@ -493,6 +493,7 @@ elif project_num == 2:
                 # if find_user_rec.count() > 0:
                 ## Thay 2 dòng trên = 2 dòng dưới này cải thiện tốc độ giảm hơn 1/2 thời gian chạy
                 find_user_rec = new_user_recs.filter(new_user_recs['customer_id'] == lit(top_user))
+                find_user_rec = find_user_rec.persist()
                 if find_user_rec.limit(1).collect():
                     st.markdown("\n+ Recommendations for customer: ")
                     user = find_user_rec.first() 
