@@ -16,6 +16,7 @@ sns.set_style("whitegrid", {'axes.grid' : False})
 import re
 from utils import _initialize_spark
 import sys
+from pyspark import SparkContext
 ### Functions: Chỉ cho hiện những hình nằm trong phạm vi cấu hình fr - to
 def project2_show_range_img(directory, fr=1, to=24):
     # Use os.listdir to get all files in the directory
@@ -375,6 +376,14 @@ elif project_num == 2:
                     # For example, you could print an error message and exit the program
                     print("Error: _initialize_spark() returned None")
                     sys.exit(1)
+            else:
+                spark = globals()['spark']
+                sc = spark.sparkContext
+                # Kiểm tra xem liệu SparkContext đã tồn tại hay chưa
+                if 'sc' not in globals():
+                    sc = SparkContext.getOrCreate()
+                else:
+                    sc = globals()['sc']                    
             from pyspark.sql.functions import *
             from pyspark.sql.types import *
             from pyspark.ml.feature import Binarizer, Bucketizer, OneHotEncoder, StringIndexer, VectorAssembler
